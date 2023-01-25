@@ -1,10 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import './CSS/search.css';
+import Pokedex from './Pokedex';
 
 export default function Search() {
-    const [pokemon, setPokemon] = useState('')
+    const [searchedMon, setSearchedMon] = useState('')
+    const [monToDex, setMonToDex] = useState({"pokemon":""})
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        setSearchedMon(e.target.value)
+
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (!localStorage.getItem(searchedMon)) {
+            loadData(searchedMon)
+        } else {
+            setMonToDex(monToDex=>{JSON.parse(localStorage.getItem(searchedMon))})
+
+            console.log(monToDex)
+        }
+    }
 
     // call api and fetch json
+    const loadData = async (name) => {
+        const poke = await getData(name)
+        const sprite = poke.sprites.other['official-artwork'].front_default
+        const type1 = poke.types[0].type.name
+        var type2 = "none"
+        if (poke.types.length == 2) {
+            type2 = poke.types[1].type.name
+        }
+        const fturl = poke.species.url
+        const height = poke.height
+        const weight = poke.weight
+        createPokeObject(sprite, type1, fturl, height, weight, type2)
+    }
+
+    
     const getData = async (name) => {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`)
         const data = await response.json()
@@ -12,65 +47,42 @@ export default function Search() {
     }
 
 
-    //html elements for data
-    const createDisplay = async (img, poketype1, texturl, height, weight, poketype2) => {
+    //create Pokemon Object for Pokedex and Cards
+    const createPokeObject = async (img, poketype1, texturl, height, weight, poketype2) => {
         const text = await getFText(texturl)
-        document.getElementById('pokeimg').src = img
         const ptype1 = getType(poketype1)
-        document.getElementById('type1').src = ptype1
         const ptype2 = getType(poketype2)
-        document.getElementById('type2').src = ptype2
-        document.querySelector(".pokeindex-right__screen").innerHTML = text
-        document.getElementById('heightfield').innerHTML = `Ht: ${height}`
-        document.getElementById('weightfield').innerHTML = `Wt: ${weight}`
 
         const storedPokemon = {
+            name: searchedMon,
             image: img,
             type1: poketype1,
+            ptype1: ptype1,
             type2: poketype2,
-            fText: text,
+            ptype2: ptype2,
+            text: text,
             height: height,
             weight: weight
         }
 
-        addPokemon(pokemon, storedPokemon)
+
+        /*
+
+
+        use _.extend to replace object? for setting state of Mon to dex
+
+
+        setMonToDex(monToDex=>{storedPokemon})
+        addPokemon(searchedMon, storedPokemon)
+
+        console.log(monToDex)
+        
 
     }
 
     const addPokemon = (name, pokemonObject) => {
         const pokemonStr = JSON.stringify(pokemonObject)
         localStorage.setItem(name, pokemonStr)
-    }
-
-    useEffect(()=>{
-
-
-    })
-
-    const existingDisplay = (existingPokemon) => {
-        document.getElementById('pokeimg').src = existingPokemon.image
-        document.getElementById('type1').src = existingPokemon.ptype1
-        document.getElementById('type2').src = existingPokemon.ptype2
-        document.querySelector(".pokeindex-right__screen").innerHTML = existingPokemon.text
-        document.getElementById('heightfield').innerHTML = `Ht: ${existingPokemon.height}`
-        document.getElementById('weightfield').innerHTML = `Wt: ${existingPokemon.weight}`
-
-    }
-
-
-
-    const loadData = async (name) => {
-        const poke = await getData(name)
-        const sprite = poke.sprites.other['official-artwork'].front_default
-        const type1 = poke.types[0].type.name
-        let type2 = "none"
-        if (poke.types.length == 2) {
-            type2 = poke.types[1].type.name
-        }
-        const fturl = poke.species.url
-        const height = poke.height
-        const weight = poke.weight
-        createDisplay(sprite, type1, fturl, height, weight, type2)
     }
 
 
@@ -126,30 +138,15 @@ export default function Search() {
         }
     }
 
-    const handleChange = (e) => {
-        e.preventDefault()
-        setPokemon(e.target.value)
-
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (!localStorage.getItem(pokemon)) {
-            loadData(pokemon)
-        } else {
-            const existing = JSON.parse(localStorage.getItem(pokemon))
-            existingDisplay(existing)
-        }
-    }
-
 
     return (
         <div>
             <form id="pokeSearchForm" type="submit" onSubmit={handleSubmit}>
                 <label for="search">Search</label>
-                <input id="searchPokemon" type="search" pattern=".*\S.*" value={pokemon} onChange={handleChange} required />
+                <input id="searchPokemon" type="search" pattern=".*\S.*" value={searchedMon} onChange={handleChange} required />
                 <span class="caret"></span>
             </form>
+            <Pokedex pokemon={monToDex} />
         </div>
     )
 }

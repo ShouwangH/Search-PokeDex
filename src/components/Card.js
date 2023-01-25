@@ -1,42 +1,44 @@
 import React from 'react'
 import './CSS/card.scss'
 
-export default function Card(pokemon) {
+export default function Card(props) {
 
-    const pokeInfo = JSON.parse(pokemon.info)
+    console.log(props)
+
+    const pokemon = JSON.parse(props.pokemon)
 
     return (
-            <figure className={'card card--' + pokeInfo.type1}>
+            <figure className={'card card--' + pokemon.type1}>
                 <div className="card__image-container">
-                    <img src={pokeInfo.image} alt={pokemon.pokemon} className="card__image" />
+                    <img src={pokemon.image} alt={pokemon.name} className="card__image" />
                 </div>
 
                 <figcaption className="card__caption">
-                    <h1 className="card__name">{pokemon.pokemon}</h1>
+                    <h1 className="card__name">{pokemon.name}</h1>
 
                     <h3 className="card__type">
-                        {pokeInfo.type1}
+                        {pokemon.type1}
                     </h3>
 
                     <h4>
-                        {pokeInfo.fText}
+                        {pokemon.text}
                     </h4>
 
                     <table className="card__stats">
                         <tbody>
-                            {pokeInfo.type2 != "none" &&
+                            {pokemon.type2 != "none" &&
                             <tr>
                                 <th>Secondary Type</th>
-                                <td>{pokeInfo.type2.toUpperCase()}</td>
+                                <td>{pokemon.type2.toUpperCase()}</td>
                             </tr>
                             }
                             <tr>
                                 <th>Height</th>
-                                <td>{pokeInfo.height}</td>
+                                <td>{pokemon.height}</td>
                             </tr>
                             <tr>
                                 <th>Weight</th>
-                                <td>{pokeInfo.weight}</td>
+                                <td>{pokemon.weight}</td>
                             </tr>
                             
                         </tbody>

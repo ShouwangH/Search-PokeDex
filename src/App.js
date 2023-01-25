@@ -7,7 +7,6 @@ function App() {
   return (
     <div>
       <Search />
-      <Pokedex  />
       <StoredC />
     </div>
   );

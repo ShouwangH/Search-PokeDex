@@ -7,9 +7,9 @@ export default function StoredC() {
 
     const displayStoredPokemon = () => {
         for (var i=0; i < localStorage.length; i++) {
-            var pokemon = localStorage.key(i)
-            var info = localStorage.getItem(pokemon)
-            pokeArr.push(<Card key={i} pokemon={pokemon} info={info}/>) 
+            var pokekey = localStorage.key(i)
+            var pokemon = localStorage.getItem(pokekey)
+            pokeArr.push(<Card key={i} pokemon={pokemon}/>) 
         }
         return pokeArr
         }

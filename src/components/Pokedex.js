@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './CSS/pokedex.css'
 
-export default function Pokedex() {
+export default function Pokedex(pokemon) {
+    
+    console.log(pokemon)
+
+    /*
+    useEffect(()=>{
+        if (pokemon) {
+        pokeDisplay(pokemon)}
+    })
+    */
+
+    const pokeDisplay = (pokemon) => {
+        document.getElementById('pokeimg').src = pokemon.image
+        document.getElementById('type1').src = pokemon.ptype1
+        document.getElementById('type2').src = pokemon.ptype2
+        document.querySelector(".pokeindex-right__screen").innerHTML = pokemon.text
+        document.getElementById('heightfield').innerHTML = `Ht: ${pokemon.height}`
+        document.getElementById('weightfield').innerHTML = `Wt: ${pokemon.weight}`
+    }
+
+  
     return (
         <div className="pokeindex">
             <div className="pokeindex-left">
