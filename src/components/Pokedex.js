@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import './CSS/pokedex.css'
 
-export default function Pokedex(pokemon) {
+export default function Pokedex(props) {
     
-    console.log(pokemon)
+    console.log(props.pokemon)
 
-    /*
+    
     useEffect(()=>{
-        if (pokemon) {
-        pokeDisplay(pokemon)}
+        if (props.pokemon.name) {
+        pokeDisplay(props.pokemon)}
     })
-    */
+    
 
     const pokeDisplay = (pokemon) => {
         document.getElementById('pokeimg').src = pokemon.image

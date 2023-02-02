@@ -19,8 +19,10 @@
   body{
       color: white
   }
+  
   .pokeindex * {
     position: absolute;
+    
   }
   
   #pokeimg {
@@ -38,7 +40,7 @@
   }
   
   .pokeindex {
-    height: 700px;
+    height: 500px;
     width: 600px;
     margin: 0 auto;
     display: flex;
@@ -46,7 +48,7 @@
   }
   
   .pokeindex-left {
-    height: 60%;
+    height: 84%;
     width: 47%;
     background-color: var(--bg-red);
     position: relative;
@@ -363,7 +365,7 @@
   }
   
   .pokeindex-middle {
-    height: 60%;
+    height: 84%;
     width: 6%;
     background-color: var(--bg-red);
     position: relative;
@@ -399,7 +401,7 @@
   }
   
   .pokeindex-right {
-    height: 60%;
+    height: 84%;
     width: 47%;
     background-color: var(--bg-red);
     position: relative;

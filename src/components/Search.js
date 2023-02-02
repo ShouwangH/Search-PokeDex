@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './CSS/search.css';
 import Pokedex from './Pokedex';
+import StoredC from './StoredC';
 
 export default function Search() {
     const [searchedMon, setSearchedMon] = useState('')
-    const [monToDex, setMonToDex] = useState({"pokemon":""})
+    const [monToDex, setMonToDex] = useState({})
+
+    console.log(searchedMon)
+    console.log(monToDex)
 
     const handleChange = (e) => {
         e.preventDefault()
+        console.log("searching")
         setSearchedMon(e.target.value)
 
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("submitted")
 
         if (!localStorage.getItem(searchedMon)) {
             loadData(searchedMon)
@@ -30,7 +36,7 @@ export default function Search() {
         const sprite = poke.sprites.other['official-artwork'].front_default
         const type1 = poke.types[0].type.name
         var type2 = "none"
-        if (poke.types.length == 2) {
+        if (poke.types.length === 2) {
             type2 = poke.types[1].type.name
         }
         const fturl = poke.species.url
@@ -66,16 +72,8 @@ export default function Search() {
         }
 
 
-        /*
-
-
-        use _.extend to replace object? for setting state of Mon to dex
-
-
-        setMonToDex(monToDex=>{storedPokemon})
+        setMonToDex({...storedPokemon})
         addPokemon(searchedMon, storedPokemon)
-
-        console.log(monToDex)
         
 
     }
@@ -147,6 +145,7 @@ export default function Search() {
                 <span class="caret"></span>
             </form>
             <Pokedex pokemon={monToDex} />
+            <StoredC />
         </div>
     )
 }
