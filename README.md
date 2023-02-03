@@ -3,7 +3,7 @@
 > Exercise to refactor pure javascript app to incorporate both react frontend.
 > Refactor also stores prior successful search and display them as cards.
 > 
-> Live demo [_here_](https://shouwangh.github.io/Search-PokeDex/). (Note: Extension which use Local Storage may interfere with the demo)
+> Live demo [_here_](https://shouwangh.github.io/Search-PokeDex/). (Note: Browser extensions which use Local Storage may interfere with the demo)
 
 <img src="public/previewgif/pokemonsearch.gif" align="center">
 
