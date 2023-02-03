@@ -1,7 +1,9 @@
-# PokeDex Refactor
+# PokeDex Search
 
 > Exercise to refactor pure javascript app to incorporate both react frontend.
 > Refactor also stores prior successful search and display them as cards.
+
+<img src="public/previewgif/pokemonsearch.gif" align="center">
 
 ## Table of Contents
 * [General Info](#general-information)
