@@ -3,30 +3,27 @@ import './CSS/search.css';
 import Pokedex from './Pokedex';
 import StoredC from './StoredC';
 
+
 export default function Search() {
     const [searchedMon, setSearchedMon] = useState('')
     const [monToDex, setMonToDex] = useState({})
 
-    console.log(searchedMon)
-    console.log(monToDex)
 
     const handleChange = (e) => {
         e.preventDefault()
-        console.log("searching")
         setSearchedMon(e.target.value)
 
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("submitted")
 
         if (!localStorage.getItem(searchedMon)) {
             loadData(searchedMon)
         } else {
             setMonToDex(monToDex=>{JSON.parse(localStorage.getItem(searchedMon))})
 
-            console.log(monToDex)
+
         }
     }
 

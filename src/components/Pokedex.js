@@ -3,9 +3,6 @@ import './CSS/pokedex.css'
 
 export default function Pokedex(props) {
     
-    console.log(props.pokemon)
-
-    
     useEffect(()=>{
         if (props.pokemon.name) {
         pokeDisplay(props.pokemon)}
